@@ -8,7 +8,6 @@ public class IsPalindrome {
         String s = sb.toString();
         System.out.println(newText);
         System.out.println(s);
-        boolean result = newText.equals(s);
-        return result;
+        return newText.equals(s);
     }
 }
