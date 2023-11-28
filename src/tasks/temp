@@ -1,9 +1,0 @@
-public class MergeArrays {
-    public static void main(String[] args) {
-        System.out.println();
-    }
-    public static boolean mergeArrays(int[] a1, int[] a2) {
-
-        return result;
-    }
-}
