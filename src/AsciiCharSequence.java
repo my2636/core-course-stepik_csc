@@ -1,27 +1,35 @@
+import java.util.Arrays;
+
 public class AsciiCharSequence implements CharSequence {
-    private byte[] byteArray;
+    private final byte[] BYTEARRAY;
 
     public AsciiCharSequence(byte[] bArray) {
-        this.byteArray = bArray;
+        this.BYTEARRAY = bArray;
     }
 
     @Override
     public int length() {
-        return byteArray.length;
+        return BYTEARRAY.length;
     }
 
     @Override
     public char charAt(int index) {
-        return 0;
+
+        return (char) BYTEARRAY[index];
     }
 
     @Override
-    public CharSequence subSequence(int start, int end) {
-        return null;
+    public AsciiCharSequence subSequence(int start, int end) {
+        return new AsciiCharSequence(Arrays.copyOfRange(BYTEARRAY, start, end));
     }
 
     @Override
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for (byte byteArray : BYTEARRAY) {
+            sb = sb.append((char) byteArray);
+        }
+
+        return sb.toString();
     }
 }
