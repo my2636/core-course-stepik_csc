@@ -1,3 +1,5 @@
+package asciiCharSequence;
+
 import java.util.Arrays;
 
 public class AsciiCharSequence implements CharSequence {

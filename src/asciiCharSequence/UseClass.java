@@ -1,3 +1,7 @@
+package asciiCharSequence;
+
+import asciiCharSequence.AsciiCharSequence;
+
 public class UseClass {
     public static void main(String[] args) {
         CharSequence asciiCharSequence = new AsciiCharSequence(new byte[]{1, 5, 7, 115, 116, 14, 116});
