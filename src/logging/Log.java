@@ -1,8 +1,6 @@
 package logging;
 
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 public class Log {
 
@@ -15,13 +13,17 @@ public class Log {
 
 
     private static void configureLogging() {
-        final Logger LOGGER = Logger.getLogger(ClassA.class.getName());
-        ConsoleHandler h =
-        LOGGER.addHandler();
-        final Logger LOGGER1 = Logger.getLogger(ClassB.class.getName());
-        LOGGER.log(Level.ALL, "All logs:");
-        LOGGER.setUseParentHandlers(true);
-        LOGGER1.log(Level.WARNING, "Warning:");
-        LOGGER1.setUseParentHandlers(true);
+        final Logger LOGGER = Logger.getLogger("org.stepic.java.logging.ClassA");
+        LOGGER.setLevel(Level.ALL);
+        final Logger LOGGER1 = Logger.getLogger("org.stepic.java.logging.ClassB");
+        LOGGER1.setLevel(Level.WARNING);
+        final Logger LOGGERP = Logger.getLogger("org.stepic.java");
+        LOGGERP.setLevel(Level.ALL);
+        Handler handlerP = new ConsoleHandler();
+        handlerP.setLevel(Level.ALL);
+        LOGGERP.addHandler(handlerP);
+        LOGGERP.setUseParentHandlers(false);
+        Formatter formatterP = new XMLFormatter();
+        handlerP.setFormatter(formatterP);
     }
 }
