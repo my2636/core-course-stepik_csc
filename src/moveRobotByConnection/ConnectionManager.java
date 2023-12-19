@@ -4,7 +4,7 @@ public class ConnectionManager implements RobotConnectionManager {
 
 
     @Override
-    public RobotConnection getconnection() {
+    public RobotConnection getConnection() {
         try {
             return new Connection();
         } catch (RobotConnectionException e) {
