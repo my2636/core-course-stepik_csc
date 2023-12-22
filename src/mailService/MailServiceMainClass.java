@@ -1,6 +1,10 @@
 package mailService;
 
 public class MailServiceMainClass {
+    public static final String AUSTIN_POWERS = "Austin Powers";
+    public static final String WEAPONS = "weapons";
+    public static final String BANNED_SUBSTANCE = "banned substance";
+
     public static interface Sendable {
         String getFrom();
         String getTo();
@@ -140,7 +144,39 @@ public class MailServiceMainClass {
     }
 
     public static class UntrustworthyMailWorker implements MailService {
+        private MailService[] mailServices;
+        public UntrustworthyMailWorker(MailService[] mailServices){
+            this.mailServices = mailServices;
+        }
+        @Override
+        public Sendable processMail(Sendable mail) {
+            Sendable count = mailServices[0].processMail(mail);
+            for (int i = 1; i < mailServices.length; i++) {
+                count = mailServices[i].processMail(count);
+            }
+            return getRealMailService().processMail(count);
+        }
+        public RealMailService getRealMailService() {
+            return new RealMailService();
+        }
+    }
 
+    public static class Spy implements MailService {
+
+        @Override
+        public Sendable processMail(Sendable mail) {
+            return null;
+        }
+    }
+
+    public static class Thief implements MailService {
+        @Override
+        public Sendable processMail(Sendable mail) {
+            return null;
+        }
+    }
+
+    public static class Inspector implements MailService {
         @Override
         public Sendable processMail(Sendable mail) {
             return null;
