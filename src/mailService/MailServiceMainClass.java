@@ -1,5 +1,10 @@
 package mailService;
 
+import exceptionQuestion.A;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class MailServiceMainClass {
     public static final String AUSTIN_POWERS = "Austin Powers";
     public static final String WEAPONS = "weapons";
@@ -162,9 +167,21 @@ public class MailServiceMainClass {
     }
 
     public static class Spy implements MailService {
+        final Logger LOGGER;
 
+        public Spy(Logger logger) {
+            LOGGER = logger;
+        }
         @Override
         public Sendable processMail(Sendable mail) {
+            if (mail instanceof MailMessage) {
+                if ((mail.getFrom().equals(AUSTIN_POWERS) || mail.getTo() == AUSTIN_POWERS)) {
+                    LOGGER.warning("Detected target mail correspondence: from "
+                            + mail.getFrom() + " to" + mail.getTo() + " " + ((MailMessage) mail).getMessage());
+                } else {
+                    LOGGER.info("Usual correspondence: from " + mail.getFrom() + "to " + mail.getTo());
+                }
+            }
             return null;
         }
     }
