@@ -1,7 +1,5 @@
 package mailService;
 
-import exceptionQuestion.A;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -159,10 +157,12 @@ public class MailServiceMainClass {
             for (int i = 1; i < mailServices.length; i++) {
                 count = mailServices[i].processMail(count);
             }
-            return getRealMailService().processMail(count);
+            getRealMailService().processMail(count);
+            return null;
         }
         public RealMailService getRealMailService() {
-            return new RealMailService();
+            RealMailService service = new RealMailService();
+            return service;
         }
     }
 
@@ -176,27 +176,67 @@ public class MailServiceMainClass {
         public Sendable processMail(Sendable mail) {
             if (mail instanceof MailMessage) {
                 if ((mail.getFrom().equals(AUSTIN_POWERS) || mail.getTo() == AUSTIN_POWERS)) {
-                    LOGGER.warning("Detected target mail correspondence: from "
-                            + mail.getFrom() + " to" + mail.getTo() + " " + ((MailMessage) mail).getMessage());
+                    LOGGER.log(Level.WARNING, "Detected target mail correspondence: from {0} to {1} \"{2}\"", new Object[] {mail.getFrom(), mail.getTo(), ((MailMessage) mail).getMessage()});
                 } else {
-                    LOGGER.info("Usual correspondence: from " + mail.getFrom() + "to " + mail.getTo());
+                    LOGGER.info("Usual correspondence: from " + mail.getFrom() + " to " + mail.getTo());
                 }
+                return mail;
             }
-            return null;
+            return mail;
         }
     }
 
     public static class Thief implements MailService {
+        private int price;
+        private int stolenValue = 0;
+        private MailPackage stolenMailPackage;
+
+        public Thief(int price) {
+            this.price = price;
+        }
         @Override
         public Sendable processMail(Sendable mail) {
-            return null;
+            if (mail instanceof MailPackage && ((MailPackage) mail).getContent().getPrice() >= price) {
+                stolenMailPackage = (MailPackage) mail;
+                stolenValue += stolenMailPackage.getContent().getPrice();
+                return new MailPackage(stolenMailPackage.getFrom(), stolenMailPackage.getTo(), new Package("stones instead of " + stolenMailPackage.getContent().getContent(), 0));
+            }
+            return mail;
+        }
+
+        public int getStolenValue() {
+            return stolenValue;
+        }
+    }
+
+    public static class IllegalPackageException extends RuntimeException {
+        public IllegalPackageException() {
+            super();
+        }
+    }
+
+    public static class StolenPackageException extends RuntimeException {
+        public StolenPackageException() {
+            super();
         }
     }
 
     public static class Inspector implements MailService {
+
+
         @Override
         public Sendable processMail(Sendable mail) {
-            return null;
+            if (mail instanceof MailPackage) {
+                MailPackage weaponPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(WEAPONS, ((MailPackage) mail).getContent().getPrice()));
+                MailPackage bannedSubstancePackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(BANNED_SUBSTANCE, ((MailPackage) mail).getContent().getPrice()));
+                if (((MailPackage) mail).equals(weaponPackage)|| ((MailPackage) mail).equals(bannedSubstancePackage)) {
+                    throw new IllegalPackageException();
+                } else if (((MailPackage) mail).getContent().getContent().contains("stones")) {
+                    throw new StolenPackageException();
+                }
+                return mail;
+            }
+            return mail;
         }
     }
 }
