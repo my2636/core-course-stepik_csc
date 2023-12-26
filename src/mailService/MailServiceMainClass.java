@@ -148,20 +148,19 @@ public class MailServiceMainClass {
 
     public static class UntrustworthyMailWorker implements MailService {
         private MailService[] mailServices;
+        public RealMailService service = new RealMailService();
         public UntrustworthyMailWorker(MailService[] mailServices){
             this.mailServices = mailServices;
         }
         @Override
         public Sendable processMail(Sendable mail) {
-            Sendable count = mailServices[0].processMail(mail);
+            Sendable worthyMail = null;
             for (int i = 1; i < mailServices.length; i++) {
-                count = mailServices[i].processMail(count);
+                worthyMail = mailServices[i].processMail(mailServices[i-1].processMail(mail));
             }
-            getRealMailService().processMail(count);
-            return null;
+            return getRealMailService().processMail(worthyMail);
         }
         public RealMailService getRealMailService() {
-            RealMailService service = new RealMailService();
             return service;
         }
     }
