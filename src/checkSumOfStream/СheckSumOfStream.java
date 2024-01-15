@@ -2,9 +2,6 @@ package checkSumOfStream;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.zip.CRC32;
-import java.util.zip.CheckedInputStream;
 
 public class СheckSumOfStream {
 
@@ -16,7 +13,6 @@ public class СheckSumOfStream {
         byte[] b1 = {0x33, 0x45, 0x01};
         InputStream is = new ByteArrayInputStream(b1);
         System.out.println(checkSumOfStream(is));
-
     }
     public static int checkSumOfStream(InputStream inputStream) throws IOException {
         int cs = 0;
@@ -28,3 +24,20 @@ public class СheckSumOfStream {
         return cs;
     }
 }
+
+/*
+1) Способ 1. Маска 0xFF
+
+byte a = -1;
+int b;
+b = ((int) a) & 0xFF; // b = 255
+
+2) Способ 2.
+Потоки сами делают вышеуказанное преобразование.
+
+ByteArrayInputStream in = new ByteArrayInputStream(new byte {-1});
+
+
+int a = in.read(); // a = 255
+
+* */
