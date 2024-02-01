@@ -1,3 +1,5 @@
+package Объекты_классы_пакеты;
+
 import java.io.*;
 import java.nio.charset.Charset;
 

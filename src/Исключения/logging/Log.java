@@ -1,4 +1,4 @@
-package logging;
+package Исключения.logging;
 
 import java.util.logging.*;
 

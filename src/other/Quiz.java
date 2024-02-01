@@ -1,3 +1,5 @@
+package other;
+
 import java.security.MessageDigest;
 
 public class Quiz {

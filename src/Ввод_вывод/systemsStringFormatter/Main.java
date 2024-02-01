@@ -1,4 +1,4 @@
-package systemsStringFormatter;
+package Ввод_вывод.systemsStringFormatter;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

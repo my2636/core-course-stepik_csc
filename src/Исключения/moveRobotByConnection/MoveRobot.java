@@ -13,7 +13,7 @@ public class MoveRobot  {
                 i = 3;
             } catch (RobotConnectionException e) {
                 if (i == 2){
-                    throw new RobotConnectionException("Robot not moved");
+                    throw new RobotConnectionException("Объекты_классы_пакеты.MoveRobot.Robot not moved");
                 }
             }
         }

@@ -1,3 +1,5 @@
+package other;
+
 /**
  * This is <code>Hello World!<code/> code
  * @author  I'm

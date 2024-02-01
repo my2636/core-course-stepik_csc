@@ -1,3 +1,5 @@
+package Базовый_синтаксис;
+
 import java.util.Arrays;
 
 public class MergeSort {
