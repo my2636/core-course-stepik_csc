@@ -1,29 +1,52 @@
-import java.io.Serializable;
-import java.util.Objects;
+import java.io.*;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class DeserializingAnimalArray {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        File file = Paths.get("zver.txt").toFile();
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+        oos.writeInt(3);
+        oos.writeObject(new Animal("zver"));
+        oos.writeObject(new Animal("zver1"));
+        oos.writeObject(new Animal("zver2"));
+        oos.close();
 
+        FileInputStream fis = new FileInputStream("zver.txt");
+        byte[] bytes = new byte[fis.available()];
+/*
+        byte[] empty = null;
+*/
+        fis.read(bytes);
+        System.out.println(Arrays.toString(bytes));
+        System.out.println(Arrays.toString(deserializeAnimalArray(bytes)));
     }
 
-    class Animal implements Serializable {
-        private final String name;
-
-        public Animal(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof Animal) {
-                return Objects.equals(name, ((Animal) obj).name);
+/*    public static Animal[] deserializeAnimalArray(byte[] data) throws IOException, ClassNotFoundException {
+        Animal[] a = null;
+        try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+            int readed = ois.readInt();
+            for (int i = 0; i < readed; i++) {
+                a[i] = (Animal) ois.readObject();
             }
-            return false;
-        }
-    }
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException("");
+        } catch (IOException e) {
+            throw new IllegalArgumentException("");
+        } return a;
+    }*/
+
     public static Animal[] deserializeAnimalArray(byte[] data) {
-        // your implementation here
-        return null;
+        try  (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+            int amount = ois.readInt();
+            Animal[] animals = new Animal[amount];
+            for (int i = 0; i < amount; i++) {
+                animals[i] = (Animal) ois.readObject();
+            }
+            return animals;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("(");
+        }
     }
 }
 
