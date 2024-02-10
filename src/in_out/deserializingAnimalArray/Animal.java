@@ -1,3 +1,5 @@
+package in_out.deserializingAnimalArray;
+
 import java.io.Serializable;
 import java.util.Objects;
 

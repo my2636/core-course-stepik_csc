@@ -1,3 +1,7 @@
+package in_out.deserializingAnimalArray;
+
+import in_out.deserializingAnimalArray.Animal;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -22,12 +26,12 @@ public class DeserializingAnimalArray {
         System.out.println(Arrays.toString(deserializeAnimalArray(bytes)));
     }
 
-/*    public static Animal[] deserializeAnimalArray(byte[] data) throws IOException, ClassNotFoundException {
-        Animal[] a = null;
+/*    public static in_out.deserializingAnimalArray.Animal[] deserializeAnimalArray(byte[] data) throws IOException, ClassNotFoundException {
+        in_out.deserializingAnimalArray.Animal[] a = null;
         try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
             int readed = ois.readInt();
             for (int i = 0; i < readed; i++) {
-                a[i] = (Animal) ois.readObject();
+                a[i] = (in_out.deserializingAnimalArray.Animal) ois.readObject();
             }
         } catch (ClassCastException e) {
             throw new IllegalArgumentException("");
@@ -51,12 +55,12 @@ public class DeserializingAnimalArray {
 }
 
 /*
-* Реализуйте метод, который из переданного массива байт восстановит массив объектов Animal.
+* Реализуйте метод, который из переданного массива байт восстановит массив объектов in_out.deserializingAnimalArray.Animal.
 * Массив байт устроен следующим образом. Сначала идет число типа int, записанное при помощи
-* ObjectOutputStream.writeInt(size). Далее подряд записано указанное количество объектов типа Animal,
+* ObjectOutputStream.writeInt(size). Далее подряд записано указанное количество объектов типа in_out.deserializingAnimalArray.Animal,
 * сериализованных при помощи ObjectOutputStream.writeObject(animal).
 
-Если вдруг массив байт не является корректным представлением массива экземпляров Animal,
+Если вдруг массив байт не является корректным представлением массива экземпляров in_out.deserializingAnimalArray.Animal,
 * то метод должен бросить исключение java.lang.IllegalArgumentException.
 
 Причины некорректности могут быть разные. Попробуйте подать на вход методу разные
