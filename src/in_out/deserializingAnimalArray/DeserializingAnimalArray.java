@@ -1,7 +1,5 @@
 package in_out.deserializingAnimalArray;
 
-import in_out.deserializingAnimalArray.Animal;
-
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Arrays;
