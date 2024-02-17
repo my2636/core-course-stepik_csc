@@ -9,7 +9,6 @@ public class СheckSumOfStream {
 /*
         File file = new File(String.join(File.separator, "src", "checkSumOfStream", "new_file.html");
 */      File file = Path.of("src", "checkSumOfStream", "new_file.html").toFile();
-        InputStream inputStream = new FileInputStream(file);
         byte[] b1 = {0x33, 0x45, 0x01};
         InputStream is = new ByteArrayInputStream(b1);
         System.out.println(checkSumOfStream(is));
