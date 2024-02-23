@@ -72,7 +72,6 @@ public class MailServiceMainClass {
 
             return true;
         }
-
     }
 
     public static class MailPackage extends AbstractSendable {
