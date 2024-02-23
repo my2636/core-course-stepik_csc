@@ -2,7 +2,7 @@ package generics_collections_streams;
 
 import java.util.*;
 
-public class reversedOddIndexes {
+public class ReversedOddIndexes {
     public static void main(String[] args) {
         try {
             String[] sArray = new Scanner(System.in).nextLine().split(" ");

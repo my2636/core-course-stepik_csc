@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ternaryOperatorWithLambda {
+public class TernaryOperatorWithLambda {
     public static void main(String[] args) {
         Predicate<Object> condition = Objects::isNull;
         Function<Object, Integer> ifTrue = obj -> 0;

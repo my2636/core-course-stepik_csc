@@ -2,7 +2,7 @@ package generics_collections_streams;
 
 import java.util.*;
 
-public class symmetricDifference {
+public class SymmetricDifference {
     public static void main(String[] args) {
         Set<Integer> firstSet = new HashSet<>(Arrays.asList(0, 1, 2));
 /*        Set<Integer> firstSet = new LinkedHashSet<>();
