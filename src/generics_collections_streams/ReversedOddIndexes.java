@@ -9,14 +9,14 @@ public class ReversedOddIndexes {
             StringBuilder sb = new StringBuilder();
             for (int i = sArray.length-1; i >= 0; i--) {
                 if (i % 2 != 0) {
-                    if (sb.length() > 0 && i < sArray.length - 1) {
+                    if (!sb.isEmpty() && i < sArray.length - 1) {
                         sb.append(" ");
                     }
                     sb.append(sArray[i]);
                 }
             }
             System.out.println(sb);
-        } catch (NoSuchElementException e) {}
+        } catch (NoSuchElementException ignored) {}
     }
 }
 
