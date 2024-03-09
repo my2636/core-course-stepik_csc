@@ -11,10 +11,10 @@ import static java.util.Collections.list;
 public class Main1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] s = sc.nextLine().split("[^A-Za-zА-Яа-я]+");
+        String[] s = sc.nextLine().split("[^A-Za-zА-Яа-я0-9]+");
         List <String> l = List.of(s);
         List <String> list = new ArrayList<>(l);
-        list.stream().distinct().sorted().forEach();
+        list.stream().distinct().sorted().map(x -> x.toLowerCase()).forEach(System.out::println);
     }
 }
 
