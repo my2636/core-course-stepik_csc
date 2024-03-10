@@ -1,22 +1,46 @@
 package generics_collections_streams;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Stream;
-
-import static java.util.Collections.list;
+import java.util.stream.Collectors;
 
 public class Main1 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String[] s = sc.nextLine().split("[^A-Za-zА-Яа-я0-9]+");
-        List <String> l = List.of(s);
-        List <String> list = new ArrayList<>(l);
-        list.stream().distinct().sorted().map(x -> x.toLowerCase()).forEach(System.out::println);
+        Arrays.stream(new Scanner(System.in).nextLine().split("[^A-Za-zА-Яа-я0-9]+"))
+                .map(String::toLowerCase)
+                .collect(Collectors.groupingBy(String::valueOf, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Long> comparingByValue().reversed().thenComparing(Map.Entry::getKey))
+                .map(Map.Entry::getKey)
+                .limit(10)
+                .forEach(System.out::println);
     }
 }
+
+/*consectetur
+faucibus
+ipsum
+lorem
+adipiscing
+amet
+dolor
+eget
+elit
+mi*/
+
+
+/*        Scanner sc1 = new Scanner(System.in);
+        String[] s = sc1.nextLine().split("[^A-Za-zА-Яа-я0-9]+");
+        List <String> l = List.of(s);
+        List <String> list = new ArrayList<>(l);
+        list.stream()
+                .distinct()
+                .sorted().
+                map(x -> x.toLowerCase())
+                .forEach(System.out::println);*/
+
 
 /*
 Напишите программу,
@@ -41,4 +65,5 @@ Sample Output 1:
 мыла
 мама
 раму
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales consectetur purus at faucibus. Donec mi quam, tempor vel ipsum non, faucibus suscipit massa. Morbi lacinia velit blandit tincidunt efficitur. Vestibulum eget metus imperdiet sapien laoreet faucibus. Nunc eget vehicula mauris, ac auctor lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel odio nec mi tempor dignissim.
 * */
