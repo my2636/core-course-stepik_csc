@@ -105,7 +105,14 @@ public class Asserting {
         @Override
         public String getTo() {return to;}
 
-        public boolean equals() {
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            AbstractSendable that = (AbstractSendable) o;
+
+            if (!from.equals(that.from)) return false;
+            if (!to.equals(that.to)) return false;
 
             return true;
         }
@@ -130,6 +137,7 @@ public class Asserting {
             super(from, to);
             this.value = value;
         }
+
         // implement here
     }
 
