@@ -1,9 +1,12 @@
 package generics_collections_streams.asserting;
 
+import exceptions.mailService.MailServiceMainClass;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class Asserting {
     public static void main(String[] args) {
@@ -91,19 +94,22 @@ public class Asserting {
 
     }
 
-    public static abstract class AbstractSendable implements Sendable {
+    public static abstract class AbstractSendable <T> implements Sendable {
         protected String from;
         protected String to;
+        T content;
 
-        public AbstractSendable(String from, String to) {
+        public AbstractSendable(String from, String to, T content) {
             this.from = from;
             this.to = to;
+            this.content = content;
         }
 
         @Override
         public String getFrom() {return from;}
         @Override
         public String getTo() {return to;}
+        public T getContent() {return content;}
 
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -118,30 +124,34 @@ public class Asserting {
         }
     }
 
-    public static class MailMessage extends AbstractSendable {
-
-        private  String content;
-
+    public static class MailMessage  extends AbstractSendable <String> {
         public MailMessage(String from, String to, String content) {
-            super(from, to);
-            this.content = content;
+            super(from, to, content);
         }
-
-        public String getContent() {return content;}
-
     }
 
-    public static class Salary extends AbstractSendable{
-        private int value;
-        public Salary(String from, String to, int value) {
-            super(from, to);
-            this.value = value;
+    public static class Salary extends AbstractSendable <Integer>{
+        public Salary(String from, String to, int content) {
+            super(from, to, content);
         }
-
-        // implement here
     }
 
-    public static class MailService {
+    public static class MailService <T> implements Consumer <AbstractSendable <T>> {
+
+        public MailService(AbstractSendable abstractSendable, ) {
+
+        }
+
+        public <T, R> Map <T, List<R>> getMailBox() {
+
+            return null;
+        }
+
+        @Override
+        public void accept(AbstractSendable<T> tAbstractSendable) {
+
+        }
+
         // implement here
     }
 }
