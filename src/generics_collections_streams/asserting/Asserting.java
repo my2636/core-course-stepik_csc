@@ -1,18 +1,13 @@
 package generics_collections_streams.asserting;
 
-import exceptions.mailService.MailServiceMainClass;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Asserting {
     public static void main(String[] args) {
 
-        String randomFrom = "..."; // Некоторая случайная строка. Можете выбрать ее самостоятельно.
-        String randomTo = "...";  // Некоторая случайная строка. Можете выбрать ее самостоятельно.
+        String randomFrom = "any body"; // Некоторая случайная строка. Можете выбрать ее самостоятельно.
+        String randomTo = "no body";  // Некоторая случайная строка. Можете выбрать ее самостоятельно.
         int randomSalary = 100;  // Некоторое случайное целое положительное число. Можете выбрать его самостоятельно.
 
         // Создание списка из трех почтовых сообщений.
@@ -95,9 +90,9 @@ public class Asserting {
     }
 
     public static abstract class AbstractSendable <T> implements Sendable {
-        protected String from;
-        protected String to;
-        T content;
+        private final String from;
+        private final String to;
+        private final T content;
 
         public AbstractSendable(String from, String to, T content) {
             this.from = from;
@@ -115,17 +110,18 @@ public class Asserting {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            AbstractSendable that = (AbstractSendable) o;
+            AbstractSendable<T> that = (AbstractSendable<T>) o;
 
             if (!from.equals(that.from)) return false;
             if (!to.equals(that.to)) return false;
+            if (!content.equals(that.content)) return false;
 
             return true;
         }
     }
 
     public static class MailMessage  extends AbstractSendable <String> {
-        public MailMessage(String from, String to, String content) {
+        private MailMessage(String from, String to, String content) {
             super(from, to, content);
         }
     }
@@ -138,21 +134,33 @@ public class Asserting {
 
     public static class MailService <T> implements Consumer <AbstractSendable <T>> {
 
-        public MailService(AbstractSendable abstractSendable, ) {
-
-        }
-
-        public <T, R> Map <T, List<R>> getMailBox() {
-
-            return null;
+        Map <String, List<T>> mailBox = new HashMap<String, List<T>>() {
+            @Override
+            public List<T> get(Object key) {
+                return mailBox.getOrDefault(key, new ArrayList<>(0));
+            }
+        };
+        public Map <String, List<T>> getMailBox() {
+            return mailBox;
         }
 
         @Override
         public void accept(AbstractSendable<T> tAbstractSendable) {
+            String receiver = tAbstractSendable.getTo();
+            T content = tAbstractSendable.getContent();
 
+            if (mailBox.containsKey(receiver)) {
+                mailBox.get(receiver).add(content);
+                System.out.println("added" + mailBox.get(receiver));
+            }
+            if (!mailBox.containsKey(receiver)) {
+                List list = new ArrayList(1);
+                list.add(content);
+                mailBox.put(receiver, list);
+                System.out.println("new" + mailBox.get(receiver));
+            }
+            System.out.println("Sent");
         }
-
-        // implement here
     }
 }
 
