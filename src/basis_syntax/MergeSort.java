@@ -10,8 +10,8 @@ public class MergeSort {
             int[] sorted = new int[a1.length + a2.length];
             int i;
             int j;
-            for (i=0, j=0; i<a1.length || j<a2.length;) {
-                sorted[i+j] = i<a1.length && (j == a2.length || a1[i] < a2[j]) ? a1[i++] : a2[j++];
+            for (i = 0, j = 0; i < a1.length || j < a2.length;) {
+                sorted[i + j] = i < a1.length && (j == a2.length || a1[i] < a2[j]) ? a1[i++] : a2[j++];
             }
 
         return sorted;
